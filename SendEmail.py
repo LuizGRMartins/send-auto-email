@@ -1,5 +1,4 @@
 import smtplib
-
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -8,13 +7,12 @@ from email import encoders
 
 #S M T P - Simple Mail transfer protocol
 #Para criar o servidor e enviar o e-mail
-
 #1- STARTAR O SERVIDOR SMTP
 # buscar em Configurações > Exibir todas configurações do outlook > Email > Sincronizar email > Configuração SMTP
 host = "smtp.office365.com"
 port = "587"
-login = "usuário" #Inserir usuário outlook
-senha = "senha" #Inserir senha outlook
+login = input("Digitar seu email para login: ")
+password = input("Digitar sua senha: ")
 
 #Dando start no servidor
 # Gmail - desbloquer acesso a app menos seguro - Conta do google > Segurança > Acesso a App menos seguro > Ativado
@@ -22,15 +20,13 @@ senha = "senha" #Inserir senha outlook
 server = smtplib.SMTP(host,port)
 server.ehlo()
 server.starttls()
-server.login(login,senha)
+server.login(login,password)
 
 #2- CONSTRUIR O EMAIL TIPO MIME
 corpo = '''
-<p>Boa tarde, tudo bem?</p>
+<p>Olá mundo, tudo bem?</p>
 
-<p>Sou a Daniela, da empresa Eletrotec.</p>
-
-<p>Trabalhamos no segmento de manutenção em nobreak, vendas de baterias e nobreaks novos</p>
+<b>Esta mensagem será apenas um teste.</b>
 
 <p>Estou encaminhando uma apresentação de nossos serviços.</p>
 
@@ -42,7 +38,7 @@ corpo = '''
 #montando e-mail
 email_msg: MIMEMultipart = MIMEMultipart()
 email_msg['From'] = login
-email_msg['To'] = "destinatário" #Inserir destinatário
+email_msg['To'] = input("Insira e-mail destinatário:")
 email_msg['Subject'] = "Dados para teste"
 email_msg.attach(MIMEText(corpo,'html'))
 
